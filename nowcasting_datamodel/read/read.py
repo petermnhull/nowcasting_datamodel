@@ -5,7 +5,7 @@
 3. get all forecast values
 """
 from datetime import datetime, timedelta, timezone
-from typing import List, Optional
+from typing import List, Optional, Union
 
 import structlog
 from sqlalchemy import desc, text
@@ -21,7 +21,6 @@ from nowcasting_datamodel.models import (
     StatusSQL,
     national_gb_label,
 )
-from nowcasting_datamodel.models.base import Base_Forecast
 from nowcasting_datamodel.models.forecast import (
     ForecastSQL,
     ForecastValueLatestSQL,
@@ -408,7 +407,7 @@ def get_forecast_values(
     end_datetime: Optional[datetime] = None,
     forecast_horizon_minutes: Optional[int] = None,
     only_return_latest: Optional[bool] = False,
-    model: Optional[Base_Forecast] = ForecastValueSQL,
+    model: Optional[Union[ForecastValueSQL, ForecastValueSevenDaysSQL]] = ForecastValueSQL,
     model_name: Optional[str] = None,
     created_utc_limit: Optional[datetime] = None,
 ) -> List[ForecastValueSQL]:

@@ -8,6 +8,7 @@ The followin tables are made with sqlamyc and pydantic
 """
 
 from datetime import datetime, time
+from typing import ClassVar
 
 from pydantic import Field, validator
 from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Index, Integer, String, Time
@@ -41,7 +42,7 @@ class Metric(EnhancedBaseModel):
     name: str = Field(..., description="The name of the metric")
     description: str = Field(..., description="The description of the metric")
 
-    rm_mode = True
+    rm_mode: ClassVar[bool] = True
 
     def to_orm(self) -> MetricSQL:
         """Change model to LocationSQL"""
@@ -170,7 +171,7 @@ class MetricValue(EnhancedBaseModel):
     )
     location: Location = Field(..., description="The location object for this metric value")
 
-    rm_mode = True
+    rm_mode: ClassVar[bool] = True
 
     def to_orm(self) -> MetricValueSQL:
         """Change model to MetricValueSQL"""
